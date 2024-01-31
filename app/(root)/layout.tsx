@@ -1,24 +1,20 @@
-import { redirect } from "next/navigation";
-import { auth } from "@clerk/nextjs";
+"use client";
 
-import prismadb from "@/lib/prismadb";
+import { redirect } from "next/navigation";
+import { useContext } from "react";
+
+import { FirebaseAuthContext } from "@/providers/firebase-auth-provider";
 
 export default async function SetupLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // const { userId } = auth();
+  const { user } = useContext(FirebaseAuthContext);
 
-  // if (!userId) {
-  //   redirect('/sign-in');
-  // }
-
-  // const store = await prismadb.store.findFirst({
-  //   where: {
-  //     userId,
-  //   }
-  // });
+  if (!user) {
+    redirect("/sign-in");
+  }
 
   redirect(`/admin`);
 

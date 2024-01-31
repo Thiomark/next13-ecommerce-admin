@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 
 import { ToastProvider } from "@/providers/toast-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { FirebaseAuthProvider } from "@/providers/firebase-auth-provider";
 
 import "./globals.css";
 
@@ -20,10 +21,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ToastProvider />
-          {children}
-        </ThemeProvider>
+        <FirebaseAuthProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ToastProvider />
+            {children}
+          </ThemeProvider>
+        </FirebaseAuthProvider>
       </body>
     </html>
   );
